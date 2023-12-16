@@ -1,0 +1,33 @@
+// @import "../styles/variables/variables";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: Roboto Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none !important;
+}
+
+b {
+  font-weight: 900;
+}
+::-webkit-scrollbar {
+  display: none;
+}
