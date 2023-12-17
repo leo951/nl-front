@@ -11,7 +11,7 @@ const MainLayout = ({ children }, props) => {
         <SideBar />
         <MainHeader />
       </header>
-      <main>{/* {children} */}</main>
+      {/* <main>{{ children }}</main> */}
     </div>
   );
 };

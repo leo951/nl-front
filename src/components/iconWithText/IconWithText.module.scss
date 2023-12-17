@@ -1,15 +1,28 @@
-.iconWithText__container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@import "../../styles/helpers/variables/_variable.scss";
 
-    margin-top: 20px;
+.iconWithText__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    img{
-        height: 25px;
-        margin-right: 14px;
-    }
-    p{
-        font-size: 18px;
-    }
+  margin-top: 20px;
+
+  cursor: pointer;
+
+  img {
+    height: 25px;
+    margin-right: 14px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .iconWithText__text_grey {
+    color: $greyColor;
+  }
+  .iconWithText__text_black {
+    color: $blackColor;
+  }
+  .iconWithText__text_white {
+    color: $whiteColor;
+  }
 }
