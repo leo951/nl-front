@@ -1,9 +1,11 @@
-function App() {
+import MainLayout from "./components/layouts/MainLayout";
+
+function App({ Component, pageProps, ...appProps }) {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <MainLayout>
+      <Component {...pageProps} />
+    </MainLayout>
   );
 }
 
-export default App;
+export default App

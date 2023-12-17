@@ -1,0 +1,15 @@
+.iconWithText__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 20px;
+
+    img{
+        height: 25px;
+        margin-right: 14px;
+    }
+    p{
+        font-size: 18px;
+    }
+}
