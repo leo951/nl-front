@@ -1,0 +1,49 @@
+@import "../../styles/helpers/variables/_variable.scss";
+
+.home__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+
+  .home__container_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 2px solid black;
+    width: 60%;
+    height: 60%;
+
+    .home__container_title {
+      margin: 40px 0 40px 0;
+
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 35px;
+      }
+    }
+
+    .home__container_steps_title {
+        margin: 20px 0;
+
+        .home__container_steps_content{
+            display: flex;
+            flex-direction: row;
+
+            img {
+                height: 20px;
+                margin: 0 10px 0 103px;
+            }
+            span {
+                color: $greyColor;
+
+                margin-left: 5px; 
+            }
+        }
+    }
+  }
+}

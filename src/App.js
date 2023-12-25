@@ -1,11 +1,12 @@
 import MainLayout from "./components/layouts/MainLayout";
+import Home from "./components/home/Home";
 
-function App({ Component, pageProps, ...appProps }) {
+function App() {
   return (
     <MainLayout>
-      <Component {...pageProps} />
+      <Home />
     </MainLayout>
   );
 }
 
-export default App
+export default App;
