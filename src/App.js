@@ -3,6 +3,7 @@ import styles from "./styles/App.module.scss";
 import MainLayout from "./components/layouts/MainLayout";
 import Home from "./components/home/Home";
 import LoginModal from "./components/modals/LoginModal";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -10,6 +11,9 @@ function App() {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
+    console.log('====================================');
+    console.log("Je suis process.env.CLIENT_ID = ", process.env);
+    console.log('====================================');
   }, []);
 
   useEffect(() => {
@@ -21,11 +25,13 @@ function App() {
   };
 
   return (
-    <MainLayout>
-      <Home />
-      {isOpenModal && <LoginModal closeModal={closeModal} />}
-      {isOpenModal && <div className={styles.overlay}></div>}
-    </MainLayout>
+    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+      <MainLayout>
+        <Home />
+        {isOpenModal && <LoginModal closeModal={closeModal} />}
+        {isOpenModal && <div className={styles.overlay}></div>}
+      </MainLayout>
+    </GoogleOAuthProvider>
   );
 }
 
