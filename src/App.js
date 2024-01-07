@@ -11,9 +11,6 @@ function App() {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-    console.log('====================================');
-    console.log("Je suis process.env.CLIENT_ID = ", process.env);
-    console.log('====================================');
   }, []);
 
   useEffect(() => {
@@ -25,7 +22,7 @@ function App() {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
       <MainLayout>
         <Home />
         {isOpenModal && <LoginModal closeModal={closeModal} />}
