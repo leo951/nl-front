@@ -1,35 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LoginModal.module.scss";
 import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const ImageLeft = require("../../assets/images/northern-lights.jpg");
 
 const LoginModal = () => {
   const [token, setToken] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    console.log('Je suis token = ', token.access_token);
-    if (token) {
-      fetch(`https://www.googleapis.com/oauth2/v1/userinfo`, {
-        headers: {
-          Authorization: `Bearer ${token.credential}`,
-          Accept: "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setUser(data);
-        })
-        .catch((err) => console.error("Error fetching user info:", err));
-    }
+    console.log("Je suis token = ", token.email);
+    setUser({
+      email: token.email,
+      firstName: token.family_name,
+      lastName: token.given_name,
+    });
   }, [token]);
-
-  useEffect(() => {
-    if (user) {
-      console.log("Je suis USER =", user);
-    }
-  }, [user]);
 
   return (
     <div className={styles.modal__container}>
@@ -43,8 +30,8 @@ const LoginModal = () => {
         <div>
           <div>
             <GoogleLogin
-              onSuccess={(token) => {
-                setToken(token);
+              onSuccess={(data) => {
+                setToken(jwtDecode(data.credential));
               }}
               onError={() => {
                 console.log("Login Failed");
