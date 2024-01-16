@@ -1,44 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./LoginModal.module.scss";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 
 import InputForm from "../inputs/inputsForm/InputForm";
 import authService from "../../services/auth.service";
 
 const ImageLeft = require("../../assets/images/northern-lights.jpg");
 
-const LoginModal = () => {
-  const [token, setToken] = useState("");
+const LoginModal = (props) => {
   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    console.log("Je suis token = ", token.email);
-    setUser({
-      email: token.email,
-      firstName: token.family_name,
-      lastName: token.given_name,
-    });
-  }, [token]);
-
-  useEffect(() => {
-    console.log("Je suis user = ", user);
-  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Je suis e = ", e);
-    // authService
-    //   .login(user)
-    //   .then((data) => {
-    //     if (data.message) {
-    //       return false;
-    //     }
-    //     localStorage.setItem("token", data.token);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    authService
+      .login(user)
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        props.setIsOpenModal(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -59,7 +41,8 @@ const LoginModal = () => {
               logo_alignment="left"
               width="300"
               onSuccess={(data) => {
-                setToken(jwtDecode(data.credential));
+                localStorage.setItem("tokenGoogle", data.credential);
+                props.setIsOpenModal(false)
               }}
               onError={() => {
                 console.log("Login Failed");
@@ -72,13 +55,6 @@ const LoginModal = () => {
         </div>
         <div className={styles.modal__container_right_form}>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <InputForm
-              placeholder="PRÉNOM"
-              required={true}
-              onChange={(e) => {
-                setUser({ ...user, firstName: e.target.value });
-              }}
-            />
             <InputForm
               placeholder="EMAIL"
               required={true}
@@ -93,10 +69,12 @@ const LoginModal = () => {
                 setUser({ ...user, password: e.target.value });
               }}
             />
+            <input
+              className={styles.modal__container_right_validate}
+              value="C'est parti"
+              type="submit"
+            />
           </form>
-        </div>
-        <div className={styles.modal__container_right_validate}>
-          <p>C'est parti</p>
         </div>
       </div>
     </div>
