@@ -1,6 +1,5 @@
 const auth = {
   login(user) {
-    console.log('Je suis user = ',user);
     return fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
       method: "POST",
       headers: {

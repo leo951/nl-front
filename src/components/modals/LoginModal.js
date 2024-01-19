@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LoginModal.module.scss";
 import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 import InputForm from "../inputs/inputsForm/InputForm";
 import authService from "../../services/auth.service";
 
 const ImageLeft = require("../../assets/images/northern-lights.jpg");
 
-const LoginModal = (props) => {
+const LoginModal = (props, { setIsOpenModal }) => {
   const [user, setUser] = useState({});
+  const [userGoogle, setUserGoogle] = useState({});
+  const [googleLoginSuccess, setGoogleLoginSuccess] = useState(false);
+
+  useEffect(() => {
+    if (googleLoginSuccess) {
+      try {
+        const data = authService.login(userGoogle);
+        localStorage.setItem("token", data.token);
+        props.setIsOpenModal(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [googleLoginSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +32,7 @@ const LoginModal = (props) => {
       .login(user)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        props.setIsOpenModal(false)
+        props.setIsOpenModal(false);
       })
       .catch((err) => {
         console.log(err);
@@ -41,8 +57,15 @@ const LoginModal = (props) => {
               logo_alignment="left"
               width="300"
               onSuccess={(data) => {
-                localStorage.setItem("tokenGoogle", data.credential);
-                props.setIsOpenModal(false)
+                const decodedToken = jwtDecode(data.credential);
+                setUserGoogle({
+                  firstName: decodedToken.family_name,
+                  lastName: decodedToken.given_name,
+                  email: decodedToken.email,
+                  profilePicture: decodedToken.picture,
+                  isGoogle: decodedToken.email_verified,
+                });
+                setGoogleLoginSuccess(true);
               }}
               onError={() => {
                 console.log("Login Failed");

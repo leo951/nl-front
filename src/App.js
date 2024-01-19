@@ -11,8 +11,7 @@ function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
-    setToken(localStorage.getItem("token")) ||
-      setToken(localStorage.getItem("tokenGoogle"));
+    setToken(localStorage.getItem("token"))
   }, []);
 
   useEffect(() => {
