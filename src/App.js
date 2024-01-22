@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/App.module.scss";
 import MainLayout from "./components/layouts/MainLayout";
 import Home from "./components/home/Home";
-import LoginModal from "./components/modals/LoginModal";
+import LoginModal from "./components/modals/loginModal/LoginModal";
 import ContextProvider from "./contexts/contextProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 

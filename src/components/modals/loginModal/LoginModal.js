@@ -3,12 +3,12 @@ import styles from "./LoginModal.module.scss";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
-import InputForm from "../inputs/inputsForm/InputForm";
-import authService from "../../services/auth.service";
+import InputForm from "../../inputs/inputsForm/InputForm";
+import authService from "../../../services/auth.service";
 
-const ImageLeft = require("../../assets/images/northern-lights.jpg");
+const ImageLeft = require("../../../assets/images/northern-lights.jpg");
 
-const LoginModal = (props, { setIsOpenModal }) => {
+const LoginModal = (props) => {
   const [user, setUser] = useState({});
   const [userGoogle, setUserGoogle] = useState({});
   const [googleLoginSuccess, setGoogleLoginSuccess] = useState(false);

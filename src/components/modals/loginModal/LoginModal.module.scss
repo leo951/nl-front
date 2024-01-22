@@ -1,11 +1,11 @@
-@import "../../styles/helpers/variables/_variable.scss";
+@import "../../../styles/helpers/variables/_variable.scss";
 
 .modal__container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: $whiteColor;
   z-index: 1001;
 
   height: 40%;
