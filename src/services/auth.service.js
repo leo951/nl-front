@@ -1,22 +1,26 @@
 const auth = {
-  login(user) {
-    return fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
+  async login(user) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
         }
-        return res.json();
-      })
-      .catch((error) => {
-        console.error("Login request error:", error);
-        throw error;
-      });
+      );
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Login request error:", error);
+      throw error;
+    }
   },
 };
 

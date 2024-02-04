@@ -1,5 +1,17 @@
 @import "../../../styles/helpers/variables/_variable.scss";
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(201, 201, 201, 0.7);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
 .stand__container {
   position: fixed;
   top: 50%;
@@ -8,11 +20,116 @@
   background-color: $whiteColor;
   z-index: 1001;
 
-  height: 20%;
-  width: 60%;
+  height: 350px;
+  width: 600px;
 
   border-radius: 10px;
 
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 30px 118px;
+
+  .stand__container_title {
+    margin-bottom: 30px;
+
+    .stand__container_title__main {
+      display: flex;
+      justify-content: center;
+
+      margin: 20px 0 40px 0;
+      h3 {
+        font-size: 1.2em;
+      }
+    }
+
+    .stand__container_title__second {
+      display: flex;
+      justify-content: center;
+
+      p {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .stand__container_body {
+    display: flex;
+    flex-direction: column;
+
+    .stand__container_body_title {
+      margin-bottom: 5px;
+
+      p {
+        font-size: 0.8em;
+        font-weight: bold;
+
+        margin-left: 5px;
+      }
+    }
+    .stand__container_body_input {
+      input {
+        width: 100%;
+        height: 40px;
+
+        border: 1px solid $greyColor;
+        border-radius: 10px;
+
+        padding-left: 5px;
+
+        &:focus {
+          outline: none;
+          border-color: $blackColor;
+        }
+      }
+    }
+  }
+
+  .stand__container_bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: 50px;
+
+    .stand__container_bottom_button1 {
+      width: 130px;
+      height: 35px;
+
+      display: flex;
+      align-items: center;
+
+      p {
+        cursor: pointer;
+      }
+    }
+    .stand__container_bottom_button2 {
+      width: 130px;
+      height: 35px;
+
+      border-radius: 15px;
+
+      background-color: $blackColor;
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: $whiteColor;
+        border: 1px solid $blackColor;
+
+        p {
+          color: $blackColor;
+        }
+      }
+
+      p {
+        color: $whiteColor;
+      }
+    }
+  }
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles/App.module.scss";
 import MainLayout from "./components/layouts/MainLayout";
 import Home from "./components/home/Home";
 import LoginModal from "./components/modals/loginModal/LoginModal";
@@ -28,7 +27,6 @@ function App() {
               setIsOpenModal={setIsOpenModal}
             />
           )}
-          {isOpenModal && <div className={styles.overlay}></div>}
         </MainLayout>
       </GoogleOAuthProvider>
     </ContextProvider>

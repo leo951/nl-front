@@ -43,7 +43,7 @@ const SideBar = () => {
       </div>
       {isNewStandModal && (
         <div>
-          <CreateStandModal /> <div className={styles.overlay}></div>
+          <CreateStandModal setIsNewStandModal={setIsNewStandModal}/>
         </div>
       )}
     </div>
