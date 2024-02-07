@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./CreateStandModal.module.scss";
 
+import standService from "../../../services/stand.service";
+import userService from "../../../services/user.service";
+
 const CreateStandModal = (props) => {
+  const [standVal, setStandVal] = useState("");
+  const token = localStorage.getItem("token");
+
+  const validateStand = async () => {
+    if (standVal) {
+      try {
+        const dataStand = await standService.addStand(standVal, token);
+        const valToUpdate = { newsStands: dataStand.data._id };
+        await userService.updateUser(valToUpdate, token);
+      } catch (err) {
+        console.log("Je suis err = ", err);
+      }
+    }
+  };
+
   return (
     <div>
       <div
@@ -24,14 +42,17 @@ const CreateStandModal = (props) => {
             <p>Kiosque</p>
           </div>
           <div className={styles.stand__container_body_input}>
-            <input type="text" />
+            <input onChange={(e) => setStandVal(e.target.value)} type="text" />
           </div>
         </div>
         <div className={styles.stand__container_bottom}>
           <div className={styles.stand__container_bottom_button1}>
-            <p>Fermer</p>
+            <p onClick={() => props.setIsNewStandModal(false)}>Fermer</p>
           </div>
-          <div className={styles.stand__container_bottom_button2}>
+          <div
+            onClick={() => validateStand()}
+            className={styles.stand__container_bottom_button2}
+          >
             <p>Valider</p>
           </div>
         </div>

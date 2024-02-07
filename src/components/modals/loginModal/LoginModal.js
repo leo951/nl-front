@@ -64,7 +64,6 @@ const LoginModal = (props) => {
                 width="300"
                 onSuccess={(data) => {
                   const decodedToken = jwtDecode(data.credential);
-                  console.log("Je suis decodedToken = ", decodedToken);
                   setUserGoogle({
                     firstName: decodedToken.family_name,
                     lastName: decodedToken.given_name,
