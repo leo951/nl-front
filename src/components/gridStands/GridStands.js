@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
-// import styles from './GridStands.module.scss'
+import styles from "./GridStands.module.scss";
+
+import ItemStands from "../itemStands/ItemStands";
 
 const GridStands = (props) => {
-  useEffect(() => {
-    console.log("Je suis props.stands = ", props.stands);
-  }, [props.stands]);
 
-  return <div></div>;
+  return (
+    <div className={styles.gridStand__container}>
+      {props.stands?.map((stand, index) => (
+        <ItemStands key={index} stand={stand} />
+      ))}
+    </div>
+  );
 };
 
 export default GridStands;

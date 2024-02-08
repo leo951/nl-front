@@ -61,7 +61,7 @@ const SideBar = () => {
             text="Ajouter kiosque"
             color="grey"
           />
-          <GridStands stands={userStands}/>
+          {userStands && <GridStands stands={userStands}/>}
         </div>
       </div>
       {isNewStandModal && (

@@ -8,6 +8,7 @@ const initialState = {
 
 const SET_USER = "SET_USER";
 const UPDATE_USER_STANDS = "UPDATE_USER_STANDS";
+const DELETE_USER_STANDS = "DELETE_USER_STANDS";
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -19,6 +20,16 @@ const userReducer = (state, action) => {
         user: {
           ...state.user,
           newsStands: [...state.user.newsStands, action.payload],
+        },
+      };
+    case DELETE_USER_STANDS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          newsStands: state.user.newsStands.filter(
+            (stand) => stand !== action.payload
+          ),
         },
       };
     default:
@@ -44,4 +55,10 @@ const useUserContext = () => {
   return context;
 };
 
-export { UserProvider, useUserContext, SET_USER, UPDATE_USER_STANDS };
+export {
+  UserProvider,
+  useUserContext,
+  SET_USER,
+  UPDATE_USER_STANDS,
+  DELETE_USER_STANDS,
+};
