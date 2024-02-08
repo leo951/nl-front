@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SideBar.module.scss";
 
 import IconWithText from "../iconWithText/IconWithText";
 import CreateStandModal from "../modals/createStandModal/CreateStandModal";
+import GridStands from "../gridStands/GridStands";
 
 import searchIcon from "../../assets/icons/icons8-chercher.svg";
 import plusIcon from "../../assets/icons/icons8-plus.svg";
 import plusIcon2 from "../../assets/icons/icons8-plus2.svg";
 
+import {
+  useUserContext,
+  SET_USER,
+} from "../../contexts/userContext";
+import userService from "../../services/user.service";
+
 const SideBar = () => {
   const [isNewStandModal, setIsNewStandModal] = useState(false);
+  const [userStands, setUserStands] = useState([])
+  const { state, dispatch } = useUserContext();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    setUserStands(state.user.newsStands)
+  }, [state.user.newsStands]);
+
+  useEffect(() => {
+    if (token) {
+      userService.getUser(token).then((data) => {
+        dispatch({ type: SET_USER, payload: data });
+      });
+    }
+  }, [token]);
 
   const AddStand = () => {
     setIsNewStandModal(!isNewStandModal);
@@ -39,11 +61,12 @@ const SideBar = () => {
             text="Ajouter kiosque"
             color="grey"
           />
+          <GridStands stands={userStands}/>
         </div>
       </div>
       {isNewStandModal && (
         <div>
-          <CreateStandModal setIsNewStandModal={setIsNewStandModal}/>
+          <CreateStandModal setIsNewStandModal={setIsNewStandModal} />
         </div>
       )}
     </div>

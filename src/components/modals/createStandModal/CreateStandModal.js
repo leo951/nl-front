@@ -4,7 +4,13 @@ import styles from "./CreateStandModal.module.scss";
 import standService from "../../../services/stand.service";
 import userService from "../../../services/user.service";
 
+import {
+  useUserContext,
+  UPDATE_USER_STANDS,
+} from "../../../contexts/userContext";
+
 const CreateStandModal = (props) => {
+  const { dispatch } = useUserContext();
   const [standVal, setStandVal] = useState("");
   const token = localStorage.getItem("token");
 
@@ -12,8 +18,11 @@ const CreateStandModal = (props) => {
     if (standVal) {
       try {
         const dataStand = await standService.addStand(standVal, token);
+        dispatch({ type: UPDATE_USER_STANDS, payload: dataStand.data._id });
         const valToUpdate = { newsStands: dataStand.data._id };
-        await userService.updateUser(valToUpdate, token);
+        const dataUser = await userService.updateUser(valToUpdate, token);
+
+        dataUser && props.setIsNewStandModal();
       } catch (err) {
         console.log("Je suis err = ", err);
       }

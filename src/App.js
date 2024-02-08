@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     !token ? setIsOpenModal(true) : setIsOpenModal(false);
   }, [token]);
-  
+
   return (
     <UserProvider>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>

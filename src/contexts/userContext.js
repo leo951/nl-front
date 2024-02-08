@@ -6,8 +6,24 @@ const initialState = {
   user: {},
 };
 
-const userReducer = (state, action) => {
+const SET_USER = "SET_USER";
+const UPDATE_USER_STANDS = "UPDATE_USER_STANDS";
 
+const userReducer = (state, action) => {
+  switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.payload.user };
+    case UPDATE_USER_STANDS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          newsStands: [...state.user.newsStands, action.payload],
+        },
+      };
+    default:
+      return state;
+  }
 };
 
 const UserProvider = ({ children }) => {
@@ -28,4 +44,4 @@ const useUserContext = () => {
   return context;
 };
 
-export { UserProvider, useUserContext };
+export { UserProvider, useUserContext, SET_USER, UPDATE_USER_STANDS };
